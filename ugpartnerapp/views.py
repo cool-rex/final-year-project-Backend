@@ -5,17 +5,27 @@ from rest_framework import generics
 
 # Create your views here.
 
+
+# This view is to handle both listing coures and creating new courses
+# queryset retrieves all courses by id
 class CourseList(generics.ListCreateAPIView):
     queryset = Course.objects.all().order_by('course_id')
     serializer_class = CourseSerializer
 
+
+# for mannuplating courses(retrieving course, updating and deleting
 class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
+
+#similar to CourseList view but for past questions
 class CoursePastQuestionList(generics.ListCreateAPIView):
     queryset = CoursePastQuestion.objects.all().order_by('-id')
     serializer_class = CoursePastQuestionSerializer
+
+
+# for mannuplating Pastquestion(retrieving pastquestions, updating and deleting
 
 class CoursePastQuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CoursePastQuestion.objects.all()
@@ -25,6 +35,9 @@ class CoursePastQuestionList1(generics.ListCreateAPIView):
     queryset = CoursePastQuestion.objects.all().order_by('-id')
     serializer_class = CoursePastQuestionSerializer1
 
+
+# This view lists all the past questions for a specific course
+# # It uses the courseid to filter the past questions by the associated course
 class CourseToCoursePastQuestion(generics.ListAPIView):
     serializer_class = CoursePastQuestionSerializer1
 
